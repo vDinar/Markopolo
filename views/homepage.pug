@@ -1,0 +1,52 @@
+doctype html
+html
+  head
+    include includes/head.pug
+    |
+    script(src='/scripts/info.js')
+    script(src='/scripts/search.js')
+    script(src='/scripts/summary.js')
+  body
+    include includes/header.pug
+    |
+    div(class='body')
+      div(class='summary')
+        div(class='coin-info')
+          div(class='preview')
+            img(src='/images/coin.png')
+          div(class='info-table')
+            div(class='info-tr')
+              div(class='name') Net hashrate (MH/s)
+              div(class='value', id='coinInfoHashrate') -
+            div(class='info-tr')
+              div(class='name') Difficulty
+              div(class='value', id='coinInfoDifficulty') -
+            div(class='info-tr')
+              div(class='name') Supply
+              div(class='value', id='coinInfoSupply') -
+          a(href='https://www.vdinar.info', target='_blank')
+            div(class='website')
+              div(class='title') vDinar's official website
+              div(class='url') https://www.vdinar.info
+        div(class='last-blocks')
+          div(class='container')
+            div(class='content')
+              div(class='search-bar')
+                form(onsubmit='search(); return false;')
+                  input(id='searchText', placeholder='Search for block indexes, block hashes, transactions or addresses...', type='text')
+                  input(type='submit', value='Search')
+              div(class='blocks-table')
+                div(class='blocks-tr blocks-tr--main')
+                  div(class='blocks-td') Block index
+                  div(class='blocks-td') Block hash
+                  div(class='blocks-td') Tx. count
+                - for (var i = 1; i <= 10; i++)
+                  div(class='blocks-tr blocks-tr--values', id='block' + i)
+                    div(class='blocks-td', id='blockIndex' + i)
+                    div(class='blocks-td', id='blockHash' + i)
+                    div(class='blocks-td', id='blockTxCount' + i)
+              div(class='blocks-footer')
+                - for (var i = 1; i <= 20; i++)
+                  div(class='blocks-page' + ((i == 1) ? ' blocks-page--selected' : ''), id='blocksPage' + i, onclick='updateBlocksPage(' + i + '); return false;')= i
+    |
+    include includes/footer.pug

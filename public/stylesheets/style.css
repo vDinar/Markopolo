@@ -1,0 +1,806 @@
+html, body
+{
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+body
+{
+  background-color: #f6f6f6;
+  font-family: 'Roboto', sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+a:hover, a:active, a:focus
+{
+  outline: none;
+}
+
+.header
+{
+  background-color: #4444aa;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px 10px 20px;
+  width: calc(100% - 40px);
+}
+
+.header h1
+{
+  color: #ffffff;
+  display: inline-block;
+  font-size: 32px;
+  line-height: 40px;
+  margin: 20px 0px 20px 0px;
+}
+
+.header .menu
+{
+  display: inline-block;
+  float: right;
+  list-style-type: none;
+  margin: 20px 0px 20px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+.header .menu a
+{
+  margin: 0px 0px 0px 15px;
+  text-decoration: none;
+}
+
+.header .menu li
+{
+  background-color: rgba(150, 150, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(20, 20, 50, 0.3);
+  color: #ffffff;
+  display: inline-block;
+  font-size: 18px;
+  line-height: 20px;
+  margin: 0px 0px 0px 0px;
+  padding: 10px 15px 10px 15px;
+}
+
+.header .menu li:hover
+{
+  background-color: rgba(150, 150, 255, 0.2);
+}
+
+.body
+{
+  min-height: calc(100vh - 308px);
+  padding: 20px 0px 20px 0px;
+}
+
+.summary,
+.transactions,
+.transaction,
+.address,
+.block
+{
+  display: table;
+  height: 567px;
+  margin: 0px 20px 0px 20px;
+  width: calc(100% - 40px);
+}
+
+.summary .coin-info,
+.transactions .coin-info,
+.transaction .coin-info,
+.address .coin-info,
+.block .coin-info
+{
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  display: table-cell;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  text-align: center;
+  width: 400px;
+}
+
+.summary .coin-info .preview,
+.transactions .coin-info .preview,
+.transaction .coin-info .preview,
+.address .coin-info .preview,
+.block .coin-info .preview
+{
+  background-image: url("/images/preview.png");
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 150px;
+}
+
+.summary .coin-info .preview img,
+.transactions .coin-info .preview img,
+.transaction .coin-info .preview img,
+.address .coin-info .preview img,
+.block .coin-info .preview img
+{
+  border-radius: 64px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+  height: 128px;
+  margin: 11px 0px 11px 0px;
+  width: 128px;
+}
+
+.summary .coin-info .info-tr,
+.transactions .coin-info .info-tr,
+.transaction .coin-info .info-tr,
+.address .coin-info .info-tr,
+.block .coin-info .info-tr
+{
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  margin: 20px 20px 20px 20px;
+  padding: 10px 0px 10px 0px;
+  width: calc(100% - 40px);
+}
+
+.summary .coin-info .name,
+.transactions .coin-info .name,
+.transaction .coin-info .name,
+.address .coin-info .name,
+.block .coin-info .name
+{
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 20px;
+  margin: 0px 0px 20px 0px;
+}
+
+.summary .coin-info .value,
+.transactions .coin-info .value,
+.transaction .coin-info .value,
+.address .coin-info .value,
+.block .coin-info .value
+{
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.summary .coin-info a,
+.transactions .coin-info a,
+.transaction .coin-info a,
+.address .coin-info a,
+.block .coin-info a
+{
+  text-decoration: none;
+}
+
+.summary .coin-info .website,
+.transactions .coin-info .website,
+.transaction .coin-info .website,
+.address .coin-info .website,
+.block .coin-info .website
+{
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  margin: 20px 20px 20px 20px;
+  padding: 20px 0px 20px 0px;
+  width: calc(100% - 40px);
+}
+
+.summary .coin-info .website .title,
+.transactions .coin-info .website .title,
+.transaction .coin-info .website .title,
+.address .coin-info .website .title,
+.block .coin-info .website .title
+{
+  color: #4444cc;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 20px;
+  margin: 0px 0px 5px 0px;
+}
+
+.summary .coin-info .website .url,
+.transactions .coin-info .website .url,
+.transaction .coin-info .website .url,
+.address .coin-info .website .url,
+.block .coin-info .website .url
+{
+  color: #6666cc;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.summary .last-blocks,
+.transactions .last-transactions,
+.transaction .transaction-info,
+.address .address-info,
+.block .block-info
+{
+  display: table-cell;
+  padding: 0px 0px 0px 20px;
+  vertical-align: top;
+}
+
+.summary .last-blocks .container,
+.transactions .last-transactions .container,
+.transaction .transaction-info .container,
+.address .address-info .container,
+.block .block-info .container
+{
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  height: 567px;
+  width: 100%;
+}
+
+.transaction .transaction-info .container,
+.address .address-info .container,
+.block .block-info .container
+{
+  height: auto;
+  min-height: 567px;
+}
+
+.summary .last-blocks .content,
+.transactions .last-transactions .content,
+.transaction .transaction-info .content,
+.address .address-info .content,
+.block .block-info .content
+{
+  margin: 20px 20px 20px 20px;
+  width: calc(100% - 40px);
+}
+
+.summary .last-blocks .search-bar input[type=text],
+.transactions .last-transactions .search-bar input[type=text],
+.transaction .transaction-info .search-bar input[type=text],
+.address .address-info .search-bar input[type=text],
+.block .block-info .search-bar input[type=text]
+{
+  border-bottom: 2px solid #eeeeee;
+  border-left: 2px solid #cccccc;
+  border-right: 2px solid #eeeeee;
+  border-top: 2px solid #cccccc;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 0px;
+  font-size: 22px;
+  line-height: 24px;
+  padding: 5px 10px 5px 10px;
+  width: calc(100% - 154px);
+}
+
+.summary .last-blocks .search-bar input[type=submit],
+.transactions .last-transactions .search-bar input[type=submit],
+.transaction .transaction-info .search-bar input[type=submit],
+.address .address-info .search-bar input[type=submit],
+.block .block-info .search-bar input[type=submit]
+{
+  background-color: #00cc00;
+  border-bottom: 2px solid #009900;
+  border-left: none;
+  border-right: 2px solid #00cc00;
+  border-top: 2px solid #00ee00;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 10px;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 24px;
+  padding: 5px 0px 5px 0px;
+  text-align: center;
+  width: 130px;
+}
+
+.summary .last-blocks .search-bar input[type=submit]:hover,
+.transactions .last-transactions .search-bar input[type=submit]:hover,
+.transaction .transaction-info .search-bar input[type=submit]:hover,
+.address .address-info .search-bar input[type=submit]:hover,
+.block .block-info .search-bar input[type=submit]:hover
+{
+  background-color: #00ee00;
+  cursor: pointer;
+}
+
+.summary .last-blocks .blocks-table,
+.transactions .last-transactions .transactions-table,
+.transaction .transaction-info .transaction-main,
+.transaction .transaction-info .transaction-block,
+.transaction .transaction-info .transaction-summary,
+.address .address-info .address-main,
+.address .address-info .address-summary,
+.address .address-info .address-transactions,
+.block .block-info .block-main,
+.block .block-info .block-summary,
+.block .block-info .block-transactions
+{
+  border-collapse: collapse;
+  display: table;
+  margin: 20px 0px 0px 0px;
+  text-align: center;
+  width: 100%;
+}
+
+.address .address-info .address-summary .spent
+{
+  background-color: #ff4444;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.summary .last-blocks .blocks-tr,
+.transactions .last-transactions .transactions-tr,
+.transaction .transaction-info .transaction-tr,
+.address .address-info .address-tr,
+.block .block-info .block-tr
+{
+  display: table-row;
+}
+
+.summary .last-blocks .blocks-tr--main,
+.transactions .last-transactions .transactions-tr--main,
+.transaction .transaction-info .transaction-tr--main,
+.address .address-info .address-tr--main,
+.block .block-info .block-tr--main
+{
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 22px;
+}
+
+.summary .last-blocks .blocks-tr--values,
+.transactions .last-transactions .transactions-tr--values,
+.transaction .transaction-info .transaction-tr--values,
+.address .address-info .address-tr--values,
+.block .block-info .block-tr--values
+{
+  font-size: 20px;
+  line-height: 22px;
+}
+
+.summary .last-blocks .blocks-td,
+.transactions .last-transactions .transactions-td,
+.transaction .transaction-info .transaction-td,
+.address .address-info .address-td,
+.block .block-info .block-td
+{
+  display: table-cell;
+  padding: 10px 10px 10px 10px;
+}
+
+.summary .last-blocks .blocks-tr--main .blocks-td,
+.transactions .last-transactions .transactions-tr--main .transactions-td,
+.transaction .transaction-info .transaction-tr--main .transaction-td,
+.address .address-info .address-tr--main .address-td,
+.block .block-info .block-tr--main .block-td
+{
+  background-color: #6666cc;
+  display: table-cell;
+}
+
+.summary .last-blocks .blocks-tr--main .blocks-td:first-child,
+.transactions .last-transactions .transactions-tr--main .transactions-td:first-child,
+.transaction .transaction-info .transaction-tr--main .transaction-td:first-child,
+.address .address-info .address-tr--main .address-td:first-child,
+.block .block-info .block-tr--main .block-td:first-child
+{
+  border-top-left-radius: 10px;
+}
+
+.summary .last-blocks .blocks-tr--main .blocks-td:last-child,
+.transactions .last-transactions .transactions-tr--main .transactions-td:last-child,
+.transaction .transaction-info .transaction-tr--main .transaction-td:last-child,
+.address .address-info .address-tr--main .address-td:last-child,
+.block .block-info .block-tr--main .block-td:last-child
+{
+  border-top-right-radius: 10px;
+}
+
+.summary .last-blocks .blocks-tr--values .blocks-td,
+.transactions .last-transactions .transactions-tr--values .transactions-td,
+.transaction .transaction-info .transaction-tr--values .transaction-td,
+.address .address-info .address-tr--values .address-td,
+.block .block-info .block-tr--values .block-td
+{
+  border: 1px solid #eeeeee;
+  display: table-cell;
+  font-size: 16px;
+  line-height: 18px;
+  padding: 10px 0px 10px 0px;
+}
+
+.summary .last-blocks .blocks-tr--values .blocks-td a:active,
+.summary .last-blocks .blocks-tr--values .blocks-td a:hover,
+.summary .last-blocks .blocks-tr--values .blocks-td a:link,
+.summary .last-blocks .blocks-tr--values .blocks-td a:visited,
+.transactions .last-transactions .transactions-tr--values .transactions-td a:active,
+.transactions .last-transactions .transactions-tr--values .transactions-td a:hover,
+.transactions .last-transactions .transactions-tr--values .transactions-td a:link,
+.transactions .last-transactions .transactions-tr--values .transactions-td a:visited,
+.transaction .transaction-info .transaction-tr--values .transaction-td a:active,
+.transaction .transaction-info .transaction-tr--values .transaction-td a:hover,
+.transaction .transaction-info .transaction-tr--values .transaction-td a:link,
+.transaction .transaction-info .transaction-tr--values .transaction-td a:visited,
+.address .address-info .address-tr--values .address-td a:active,
+.address .address-info .address-tr--values .address-td a:hover,
+.address .address-info .address-tr--values .address-td a:link,
+.address .address-info .address-tr--values .address-td a:visited,
+.block .block-info .block-tr--values .block-td a:active,
+.block .block-info .block-tr--values .block-td a:hover,
+.block .block-info .block-tr--values .block-td a:link,
+.block .block-info .block-tr--values .block-td a:visited
+{
+  color: #0000ee;
+  text-decoration: none;
+}
+
+.address .address-info .address-main .address-td:last-child
+{
+  border: none;
+}
+
+.address .address-info .address-main .credit,
+.address .address-info .address-summary .received,
+.address .address-info .address-transactions .received
+{
+  background-color: #44cc44;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.address .address-info .address-transactions .received,
+.block .block-info .block-transactions .affirmative
+{
+  border: 1px solid #55dd55;
+}
+
+.address .address-info .address-summary .address-td
+{
+  border: none;
+  width: 50%;
+}
+
+.address .address-info .address-summary .spent,
+.address .address-info .address-transactions .spent
+{
+  background-color: #ff4444;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.address .address-info .address-transactions .spent,
+.block .block-info .block-transactions .negative
+{
+  border: 1px solid #ff5555;
+}
+
+.block .block-info .block-transactions .affirmative
+{
+  background-color: #44cc44;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.block .block-info .block-transactions .negative
+{
+  background-color: #ff4444;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.transaction .transaction-info .transaction-main,
+.transaction .transaction-info .transaction-block,
+.transaction .transaction-info .transaction-summary,
+.address .address-info .address-main,
+.address .address-info .address-transactions,
+.block .block-info .block-main,
+.block .block-info .block-summary,
+.block .block-info .block-transactions
+{
+  border-collapse: separate;
+}
+
+.transaction .transaction-info .transaction-tr--values .transaction-td:nth-child(n + 2),
+.address .address-info .address-tr--values .address-td:nth-child(n + 2),
+.block .block-info .block-tr--values .block-td:nth-child(n + 2)
+{
+  border-left: none;
+}
+
+.transaction .transaction-info .transaction-tr--values:nth-of-type(n + 2) .transaction-td,
+.address .address-info .address-tr--values:nth-of-type(n + 2) .address-td,
+.block .block-info .block-tr--values:nth-of-type(n + 2) .block-td
+{
+  border-top: none;
+}
+
+.transaction .transaction-tr--values:last-child .transaction-td:first-child,
+.address .address-tr--values:last-child .address-td:first-child,
+.block .block-tr--values:last-child .block-td:first-child
+{
+  border-bottom-left-radius: 10px;
+}
+
+.transaction .transaction-tr--values:last-child .transaction-td:last-child,
+.address .address-tr--values:last-child .address-td:last-child,
+.block .block-tr--values:last-child .block-td:last-child
+{
+  border-bottom-right-radius: 10px;
+}
+
+.address .address-info .disclaimer
+{
+  color: #444444;
+  display: block;
+  font-style: italic;
+  margin: 10px 0px 0px 0px;
+}
+
+.transaction .transaction-info .transaction-main .transaction-tr--values:last-child .transaction-td:last-child
+{
+  background-color: #44cc44;
+  border: none;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.transaction .transaction-summary .transaction-td
+{
+  width: 50%;
+}
+
+.transaction .transaction-info .inputs-table,
+.transaction .transaction-info .outputs-table
+{
+  border-collapse: separate;
+  display: table;
+  margin: -10px 0px -10px 0px;
+  width: 100%;
+}
+
+.transaction .transaction-info .inputs-table .inputs-tr,
+.transaction .transaction-info .outputs-table .outputs-tr
+{
+  display: table-row;
+}
+
+.transaction .transaction-info .inputs-table .inputs-td,
+.transaction .transaction-info .outputs-table .outputs-td
+{
+  display: table-cell;
+  padding: 10px 10px 10px 10px;
+}
+
+.transaction .transaction-info .inputs-table .inputs-tr--main .inputs-td,
+.transaction .transaction-info .outputs-table .outputs-tr--main .outputs-td
+{
+  background-color: #eeeeee;
+  color: #222244;
+  font-weight: bold;
+}
+
+.transaction .transaction-info .inputs-table .inputs-tr--main .inputs-td:last-child,
+.transaction .transaction-info .outputs-table .outputs-tr--main .outputs-td:last-child
+{
+  background-color: #e2e2e2;
+}
+
+.transaction .transaction-info .inputs-table .inputs-tr--values .inputs-td:last-child
+{
+  background-color: #ff4444;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.transaction .transaction-info .outputs-table .outputs-tr--values .outputs-td:last-child
+{
+  background-color: #44cc44;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.transaction .transaction-info .inputs-table .inputs-tr:last-child .inputs-td:first-child
+{
+  border-bottom-left-radius: 10px;
+}
+
+.transaction .transaction-info .outputs-table .outputs-tr:last-child .outputs-td:last-child
+{
+  border-bottom-right-radius: 10px;
+}
+
+.summary .last-blocks .blocks-footer,
+.transactions .last-transactions .transactions-footer
+{
+  border-collapse: collapse;
+  display: table;
+  width: 100%;
+}
+
+.summary .last-blocks .blocks-footer .blocks-page,
+.transactions .last-transactions .transactions-footer .transactions-page
+{
+  background-color: #6666cc;
+  //border: 1px solid #eeeeee;
+  color: #ffffff;
+  display: table-cell;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 18px;
+  padding: 8px 0px 9px 0px;
+  text-align: center;
+  width: 5%;
+}
+
+.summary .last-blocks .blocks-footer .blocks-page:hover,
+.transactions .last-transactions .transactions-footer .transactions-page:hover
+{
+  background-color: #6666ff;
+  cursor: pointer;
+}
+
+.summary .last-blocks .blocks-footer .blocks-page:first-child,
+.transactions .last-transactions .transactions-footer .transactions-page:first-child
+{
+  border-bottom-left-radius: 10px;
+}
+
+.summary .last-blocks .blocks-footer .blocks-page:last-child,
+.transactions .last-transactions .transactions-footer .transactions-page:last-child
+{
+  border-bottom-right-radius: 10px;
+}
+
+.summary .last-blocks .blocks-footer .blocks-page--selected,
+.transactions .last-transactions .transactions-footer .transactions-page--selected
+{
+  background-color: #3333aa;
+  color: #999999;
+}
+
+.summary .last-blocks .blocks-footer .blocks-page--selected:hover,
+.transactions .last-transactions .transactions-footer .transactions-page--selected:hover
+{
+  background-color: #3333cc;
+  cursor: default;
+}
+
+.api
+{
+  display: table;
+  width: 100%;
+}
+
+.api .menu
+{
+  display: table-cell;
+  width: 400px;
+}
+
+.api .menu .menu-box
+{
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: block;
+  margin: 10px 0px 10px 20px;
+  padding: 20px 10px 10px 10px;
+  width: calc(100% - 40px);
+}
+
+.api .menu .menu-box h2
+{
+  display: inline-block;
+  margin: 0px 10px 0px 10px;
+  padding: 0px 0px 0px 0px;
+}
+
+.api .menu .menu-box ul
+{
+  list-style-type: none;
+  margin: 20px 10px 0px 20px;
+  padding: 0px 0px 0px 0px;
+}
+
+.api .menu .menu-box ul li
+{
+  margin: 10px 0px 10px 0px;
+}
+
+.api .menu .menu-box ul li a:active,
+.api .menu .menu-box ul li a:hover,
+.api .menu .menu-box ul li a:link,
+.api .menu .menu-box ul li a:visited,
+.api .functions .function a:active,
+.api .functions .function a:hover,
+.api .functions .function a:link,
+.api .functions .function a:visited
+{
+  color: #0000ee;
+  text-decoration: none;
+}
+
+.api .functions
+{
+  display: table-cell;
+}
+
+.api .functions h2
+{
+  background-color: #4444aa;
+  border-radius: 5px;
+  color: #ffffff;
+  display: inline-block;
+  margin: 10px 30px 10px 30px;
+  padding: 10px 10px 10px 10px;
+}
+
+.api .function
+{
+  background-color: #ffffff;
+  border-radius: 10px;
+  display: block;
+  margin: 20px 20px 20px 20px;
+  padding: 10px 20px 10px 20px;
+}
+
+.api .function h3
+{
+  margin: 10px 0px 10px 0px;
+}
+
+.api .function .parameters
+{
+  background-color: #dedede;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 0px 0px 10px 0px;
+  padding: 10px 10px 10px 10px;
+}
+
+.api .function .description
+{
+  display: block;
+}
+
+.footer
+{
+  background-color: #ffffff;
+  padding: 40px 0px 40px 0px;
+  text-align: center;
+}
+
+.footer .copyright
+{
+  color: #222222;
+  font-size: 18px;
+  line-height: 20px;
+  margin: 0px 0px 40px 0px;
+}
+
+.footer ul
+{
+  height: 28px;
+  list-style-type: none;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+.footer ul a
+{
+  margin: 0px 15px 0px 15px;
+  text-decoration: none;
+}
+
+.footer ul li
+{
+  border: 1px dashed #222222;
+  border-radius: 5px;
+  color: #222222;
+  font-size: 16px;
+  line-height: 18px;
+  padding: 4px 10px 4px 10px;
+  display: inline;
+}
