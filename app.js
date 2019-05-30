@@ -14,26 +14,26 @@ app.set('view engine', 'pug')
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function (req, res) {
-  res.render('homepage', { title: 'Markopolo explorer' })
+  res.render('homepage', { title: 'vDinar Pretraživač' })
 })
 
-app.get('/address/:address', function (req, res) {
+app.get('/adresa/:address', function (req, res) {
   const address = req.params.address
   const addressReg = new RegExp('^([a-zA-Z0-9]{34})$')
 
   if (!addressReg.test(address)) {
     res.redirect('/')
   } else {
-    res.render('address', { title: 'Markopolo explorer', address: address })
+    res.render('address', { title: 'vDinar Pretraživač', address: address })
   }
 })
 
-app.get('/api', function (req, res) {
-  res.render('api', { title: 'Markopolo explorer' })
+app.get('/aps', function (req, res) {
+  res.render('api', { title: 'vDinar Pretraživač' })
 })
 
-app.get('/api/v1.0/getaddress', function (req, res) {
-  const address = req.query.address
+app.get('/aps/v1.0/adresa', function (req, res) {
+  const address = req.query.adresa
   const addressReg = new RegExp('^([a-zA-Z0-9]{34})$')
 
   if (addressReg.test(address)) {
@@ -56,18 +56,18 @@ app.get('/api/v1.0/getaddress', function (req, res) {
       )
     })
   } else {
-    res.json({ error: true, message: 'Address is not valid.' })
+    res.json({ error: true, message: 'Adresa nije važeća.' })
   }
 })
 
-app.get('/api/v1.0/getaddresstransactions', function (req, res) {
-  const address = req.query.address
+app.get('/aps/v1.0/adresnetransakcije', function (req, res) {
+  const address = req.query.adresa
   const addressReg = new RegExp('^([a-zA-Z0-9]{34})$')
 
   var offset = 0;
 
-  if (typeof req.query.page != 'undefined') {
-    const page = Math.max(0, parseInt(req.query.page) - 1)
+  if (typeof req.query.stranica != 'undefined') {
+    const page = Math.max(0, parseInt(req.query.stranica) - 1)
     offset = page * 10
   }
 
@@ -113,25 +113,25 @@ app.get('/api/v1.0/getaddresstransactions', function (req, res) {
       )
     })
   } else {
-    res.json({ error: true, message: 'Address is not valid.' })
+    res.json({ error: true, message: 'Adresa nije važeća.' })
   }
 })
 
-app.get('/api/v1.0/getblock', function (req, res) {
-  if (typeof req.query.hash != 'undefined') {
-    const hash = req.query.hash
+app.get('/aps/v1.0/blok', function (req, res) {
+  if (typeof req.query.rezultat != 'undefined') {
+    const hash = req.query.rezultat
     const hashReg = new RegExp('^([a-zA-Z0-9]{64})$')
 
     if (hashReg.test(hash)) {
-      client.getBlock(req.query.hash).then((result) => res.json(result))
+      client.getBlock(hash).then((result) => res.json(result))
       .catch((error) => {
-        res.json({ error: true, message: 'Block hash does not correspond to any existing block.' })
+        res.json({ error: true, message: 'Rezultat bloka nije poznat.' })
       })
     } else {
-      res.json({ error: true, message: 'Block hash is not valid.' })
+      res.json({ error: true, message: 'Rezultat bloka nije važeći.' })
     }
-  } else if (typeof req.query.index != 'undefined') {
-    const index = parseInt(req.query.index)
+  } else if (typeof req.query.pozicija != 'undefined') {
+    const index = parseInt(req.query.pozicija)
 
     if (index >= 0) {
       client.getBlockchainInfo().then(info => {
@@ -142,40 +142,40 @@ app.get('/api/v1.0/getblock', function (req, res) {
             })
           })
         } else {
-          res.json({ error: true, message: 'Block index is higher than the current best height.' })
+          res.json({ error: true, message: 'Pozicija bloka je veća od trenutačne visine lanca blokova.' })
         }
       })
     } else {
-      res.json({ error: true, message: 'Block index is either negative or not an integer.' })
+      res.json({ error: true, message: 'Pozicija bloka je negativna ili nije broj.' })
     }
   }
   else
   {
-    res.json({ error: true, message: 'No block hash or index provided.' })
+    res.json({ error: true, message: 'Potreban je rezultat bloka ili njegova pozicija.' })
   }
 })
 
-app.get('/api/v1.0/getblockbyhash', function (req, res) {
-  if (typeof req.query.hash != 'undefined') {
-    const hash = req.query.hash
+app.get('/aps/v1.0/blokputemrezultata', function (req, res) {
+  if (typeof req.query.rezultat != 'undefined') {
+    const hash = req.query.rezultat
     const hashReg = new RegExp('^([a-zA-Z0-9]{64})$')
 
     if (hashReg.test(hash)) {
-      client.getBlock(req.query.hash).then((result) => res.json(result))
+      client.getBlock(hash).then((result) => res.json(result))
       .catch((error) => {
-        res.json({ error: true, message: 'Block hash does not correspond to any existing block.' })
+        res.json({ error: true, message: 'Rezultat bloka nije poznat.' })
       })
     } else {
-      res.json({ error: true, message: 'Block hash is not valid.' })
+      res.json({ error: true, message: 'Rezultat bloka nije važeći.' })
     }
   } else {
-    res.json({ error: true, message: 'No block hash provided.' })
+    res.json({ error: true, message: 'Potreban je rezultat bloka.' })
   }
 })
 
-app.get('/api/v1.0/getblockbyindex', function (req, res) {
-  if (typeof req.query.index != 'undefined') {
-    const index = parseInt(req.query.index)
+app.get('/aps/v1.0/blokputempozicije', function (req, res) {
+  if (typeof req.query.pozicija != 'undefined') {
+    const index = parseInt(req.query.pozicija)
 
     if (index >= 0) {
       client.getBlockchainInfo().then(info => {
@@ -186,26 +186,26 @@ app.get('/api/v1.0/getblockbyindex', function (req, res) {
             })
           })
         } else {
-          res.json({ error: true, message: 'Block index is higher than the current best height.' })
+          res.json({ error: true, message: 'Pozicija bloka je veća od trenutačne visine lanca blokova.' })
         }
       })
     } else {
-      res.json({ error: true, message: 'Block index is either negative or not an integer.' })
+      res.json({ error: true, message: 'Pozicija bloka je negativna ili nije broj.' })
     }
   }
   else
   {
-    res.json({ error: true, message: 'No block index provided.' })
+    res.json({ error: true, message: 'Potrebna je pozicija bloka.' })
   }
 })
 
-app.get('/api/v1.0/getblockchaininfo', function (req, res) {
+app.get('/aps/v1.0/lanacblokova', function (req, res) {
   client.getBlockchainInfo().then((result) => res.json(result))
 })
 
-app.get('/api/v1.0/getblockhash', function (req, res) {
-  if (typeof req.query.index != 'undefined') {
-    const index = parseInt(req.query.index)
+app.get('/aps/v1.0/rezultatbloka', function (req, res) {
+  if (typeof req.query.pozicija != 'undefined') {
+    const index = parseInt(req.query.pozicija)
 
     if (index >= 0) {
       client.getBlockchainInfo().then(info => {
@@ -214,24 +214,24 @@ app.get('/api/v1.0/getblockhash', function (req, res) {
             res.json(hash)
           })
         } else {
-          res.json({ error: true, message: 'Block index is higher than the current best height.' })
+          res.json({ error: true, message: 'Pozicija bloka je veća od trenutačne visine lanca blokova.' })
         }
       })
     } else {
-      res.json({ error: true, message: 'Block index is either negative or not an integer.' })
+      res.json({ error: true, message: 'Pozicija bloka je negativna ili nije broj.' })
     }
   }
   else
   {
-    res.json({ error: true, message: 'No block index provided.' })
+    res.json({ error: true, message: 'Potrebna je pozicija bloka.' })
   }
 })
 
-app.get('/api/v1.0/getlastblocks', function (req, res) {
+app.get('/aps/v1.0/zadnjiblokovi', function (req, res) {
   var offset = 0;
 
-  if (typeof req.query.page != 'undefined') {
-    const page = Math.max(0, parseInt(req.query.page) - 1)
+  if (typeof req.query.stranica != 'undefined') {
+    const page = Math.max(0, parseInt(req.query.stranica) - 1)
     offset = page * 10
   }
 
@@ -256,7 +256,7 @@ app.get('/api/v1.0/getlastblocks', function (req, res) {
           })
         })
       } else {
-        blocks[i] = { error: true, message: 'Block has a negative index.' }
+        blocks[i] = { error: true, message: 'Blok ima negativnu poziciju.' }
         calculated++
 
         if (calculated == 10) {
@@ -267,11 +267,11 @@ app.get('/api/v1.0/getlastblocks', function (req, res) {
   })
 })
 
-app.get('/api/v1.0/getlasttransactions', function (req, res) {
+app.get('/aps/v1.0/zadnjetransakcije', function (req, res) {
   var offset = 0;
 
-  if (typeof req.query.page != 'undefined') {
-    const page = Math.max(0, parseInt(req.query.page) - 1)
+  if (typeof req.query.stranica != 'undefined') {
+    const page = Math.max(0, parseInt(req.query.stranica) - 1)
     offset = page * 10
   }
 
@@ -291,29 +291,29 @@ app.get('/api/v1.0/getlasttransactions', function (req, res) {
   });
 })
 
-app.get('/api/v1.0/getmininginfo', function (req, res) {
+app.get('/aps/v1.0/rudarenje', function (req, res) {
   client.getMiningInfo().then((result) => res.json(result))
 })
 
-app.get('/api/v1.0/getrawtransaction', function (req, res) {
-  if (typeof req.query.id != 'undefined') {
-    const id = req.query.id
+app.get('/aps/v1.0/izvornatransakcija', function (req, res) {
+  if (typeof req.query.broj != 'undefined') {
+    const id = req.query.broj
     const idReg = new RegExp('^([a-zA-Z0-9]{64})$')
 
     if (hashReg.test(id)) {
-      client.getRawTransaction(req.query.id).then((result) => res.json(result))
+      client.getRawTransaction(id).then((result) => res.json(result))
       .catch((error) => {
-        res.json({ error: true, message: 'Transaction id does not correspond to any existing transaction.' })
+        res.json({ error: true, message: 'Broj transakcije nije poznat.' })
       })
     } else {
-      res.json({ error: true, message: 'Transaction id is not valid.' })
+      res.json({ error: true, message: 'Broj transakcije nije važeći.' })
     }
   } else {
-    res.json({ error: true, message: 'No transaction id provided.' })
+    res.json({ error: true, message: 'Potreban je broj transakcije.' })
   }
 })
 
-app.get('/api/v1.0/getsupply', function (req, res) {
+app.get('/aps/v1.0/proizvod', function (req, res) {
   MongoClient.connect(mongoUrl, { useNewUrlParser: true }, function(err, db) {
     if (err) {
       throw err
@@ -334,8 +334,8 @@ app.get('/api/v1.0/getsupply', function (req, res) {
   })
 })
 
-app.get('/api/v1.0/gettransaction', function (req, res) {
-  const id = req.query.id
+app.get('/aps/v1.0/transakcija', function (req, res) {
+  const id = req.query.identifikator
   const idReg = new RegExp('^([a-zA-Z0-9]{64})$')
   const numericIdReg = new RegExp('^([0-9]+)$')
 
@@ -378,12 +378,12 @@ app.get('/api/v1.0/gettransaction', function (req, res) {
       )
     })
   } else {
-    res.json({ error: true, message: 'Transaction id neither corresponds to an id nor is numeric.' })
+    res.json({ error: true, message: 'Identifikator transakcije nije ni rezultat transakcije ni broj.' })
   }
 })
 
-app.get('/api/v1.0/search', function (req, res) {
-  const string = req.query.string
+app.get('/aps/v1.0/pretraga', function (req, res) {
+  const string = req.query.tekst
   const idReg = new RegExp('^([0-9]+)$')
   const hashReg = new RegExp('^([a-zA-Z0-9]{64})$')
   const addressReg = new RegExp('^([a-zA-Z0-9]{34})$')
@@ -393,9 +393,9 @@ app.get('/api/v1.0/search', function (req, res) {
 
     client.getBlockchainInfo().then(info => {
       if (info.blocks >= index) {
-        res.json({ url: '/block/' + index })
+        res.json({ url: '/blok/' + index })
       } else {
-        res.json({ error: true, message: 'Block index is greater than blockchain height.' })
+        res.json({ error: true, message: 'Pozicija bloka je veća od visine lanca blokova.' })
       }
     })
   } else if (hashReg.test(string)) {
@@ -413,12 +413,12 @@ app.get('/api/v1.0/search', function (req, res) {
           }
 
           if (result) {
-            res.json({ url: '/transaction/' + string })
+            res.json({ url: '/transakcija/' + string })
           } else {
             client.getBlock(string).then(block => {
-              res.json({ url: '/block/' + string })
+              res.json({ url: '/blok/' + string })
             }).catch(error => {
-              res.json({ error: true, message: 'Provided string does not correspond to any block hash or stored transaction.' })
+              res.json({ error: true, message: 'Tekst nije poznat ni kao rezultat bloka ni kao rezultat transakcije.' })
             })
           }
         }
@@ -439,21 +439,21 @@ app.get('/api/v1.0/search', function (req, res) {
           }
 
           if (result) {
-            res.json({ url: '/address/' + string })
+            res.json({ url: '/adresa/' + string })
           }
           else {
-            res.json({ error: true, message: 'Provided address does not correspond to any stored address.' })
+            res.json({ error: true, message: 'Adresa nije poznata.' })
           }
           db.close()
         }
       )
     })
   } else {
-    res.json({ error: true, message: 'String does not correspond to any existing format.' })
+    res.json({ error: true, message: 'Tekst nije u prepoznatljivom formatu.' })
   }
 })
 
-app.get('/block/:block', function (req, res) {
+app.get('/blok/:block', function (req, res) {
   const block = req.params.block
   const hashReg = new RegExp('^([a-zA-Z0-9]{64})$')
   const idReg = new RegExp('^([0-9]+)$')
@@ -467,7 +467,7 @@ app.get('/block/:block', function (req, res) {
       client.getBlockchainInfo().then(info => {
         if (info.blocks >= index) {
           client.getBlockHash(index).then(hash => {
-            res.redirect('/block/' + hash)
+            res.redirect('/blok/' + hash)
           })
         } else {
           res.redirect('/')
@@ -475,18 +475,18 @@ app.get('/block/:block', function (req, res) {
       })
 
     } else {
-      res.render('block', { title: 'Markopolo explorer', block: block })
+      res.render('block', { title: 'vDinar Pretraživač', block: block })
     }
   }
 })
 
-app.get('/transaction/:txid', function (req, res) {
+app.get('/transakcija/:txid', function (req, res) {
   const id = req.params.txid
   const idReg = new RegExp('^([a-zA-Z0-9]{64})$')
   const numericIdReg = new RegExp('^([0-9]+)$')
 
   if (!idReg.test(id) && !numericIdReg.test(id)) {
-    res.redirect('/transactions')
+    res.redirect('/transakcije')
   } else {
     if (!idReg.test(id)) {
       MongoClient.connect(mongoUrl, { useNewUrlParser: true }, function(err, db) {
@@ -502,19 +502,19 @@ app.get('/transaction/:txid', function (req, res) {
               throw err
             }
 
-            res.redirect('/transaction/' + result.transaction)
+            res.redirect('/transakcija/' + result.transaction)
             db.close()
           }
         )
       })
     } else {
-      res.render('transaction', { title: 'Markopolo explorer', transaction: id })
+      res.render('transaction', { title: 'vDinar Pretraživač', transaction: id })
     }
   }
 })
 
-app.get('/transactions', function (req, res) {
-  res.render('transactions', { title: 'Markopolo explorer' })
+app.get('/transakcije', function (req, res) {
+  res.render('transactions', { title: 'vDinar Pretraživač' })
 })
 
 app.listen(port, () => console.log(`Markopolo explorer listening on port ${port}!`))
