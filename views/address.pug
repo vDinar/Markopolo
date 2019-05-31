@@ -3,9 +3,9 @@ html
   head
     include includes/head.pug
     |
-    script(src='/scripts/address.js')
-    script(src='/scripts/info.js')
-    script(src='/scripts/search.js')
+    script(src='/skriptovi/adresa.js')
+    script(src='/skriptovi/info.js')
+    script(src='/skriptovi/pretraga.js')
   body
     include includes/header.pug
     |
@@ -13,32 +13,32 @@ html
       div(class='address')
         div(class='coin-info')
           div(class='preview')
-            img(src='/images/coin.png')
+            img(src='/slike/valuta.png')
           div(class='info-table')
             div(class='info-tr')
-              div(class='name') Net hashrate (MH/s)
+              div(class='name') Rudarska jačina (MH/s)
               div(class='value', id='coinInfoHashrate') -
             div(class='info-tr')
-              div(class='name') Difficulty
+              div(class='name') Rudarska težina
               div(class='value', id='coinInfoDifficulty') -
             div(class='info-tr')
-              div(class='name') Supply
+              div(class='name') Proizvedeno
               div(class='value', id='coinInfoSupply') -
           a(href='https://www.vdinar.info', target='_blank')
             div(class='website')
-              div(class='title') vDinar's official website
+              div(class='title') Službena stranica
               div(class='url') https://www.vdinar.info
         div(class='address-info')
           div(class='container')
             div(class='content')
               div(class='search-bar')
                 form(onsubmit='search(); return false;')
-                  input(id='searchText', placeholder='Search for block indexes, block hashes, transactions or addresses...', type='text')
-                  input(type='submit', value='Search')
+                  input(id='searchText', placeholder='Traži poziciju bloka, rezultat bloka, transakciju ili adresu...', type='text')
+                  input(type='submit', value='Traži')
               div(class='address-main')
                 div(class='address-tr address-tr--main')
-                  div(class='address-td')= 'Address'
-                  div(class='address-td')= 'Credit'
+                  div(class='address-td')= 'Adresa'
+                  div(class='address-td')= 'Kredit'
                 div(class='address-tr address-tr--values')
                   div(class='address-td' id='address')= address
                   div(class='address-td credit')
@@ -46,8 +46,8 @@ html
                     span(class='currency')= ' VDN'
               div(class='address-summary')
                 div(class='address-tr address-tr--main')
-                  div(class='address-td')= 'Received'
-                  div(class='address-td')= 'Spent'
+                  div(class='address-td')= 'Primljeno'
+                  div(class='address-td')= 'Potrošeno'
                 div(class='address-tr address-tr--values')
                   div(class='address-td received')
                     span(class='value' id='addressReceived')
@@ -57,8 +57,8 @@ html
                     span(class='currency')= ' VDN'
               div(class='address-transactions' id='addressTransactions')
                 div(class='address-tr address-tr--main')
-                  div(class='address-td')= 'Time'
-                  div(class='address-td')= 'Transaction'
-                  div(class='address-td')= 'Value'
+                  div(class='address-td')= 'Datum'
+                  div(class='address-td')= 'Transakcija'
+                  div(class='address-td')= 'Vrijednost'
     |
     include includes/footer.pug
