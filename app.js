@@ -50,13 +50,19 @@ app.get('/aps/v1.0/adresa', function (req, res) {
             throw err
           }
 
-          res.json(result)
+          res.json({
+            adresa: result.address,
+            primljeno: result.received,
+            potrošeno: result.spent,
+            nepotvrđenoPrimljeno: result.unconfirmedReceived,
+            nepotvrđenoPotrošeno: result.unconfirmedSpent
+          })
           db.close()
         }
       )
     })
   } else {
-    res.json({ error: true, message: 'Adresa nije važeća.' })
+    res.json({ greška: true, poruka: 'Adresa nije važeća.' })
   }
 })
 
@@ -107,13 +113,45 @@ app.get('/aps/v1.0/adresnetransakcije', function (req, res) {
             throw err
           }
 
-          res.json(result)
+          var translation = []
+
+          for (var i = 0; i < result.length; i++) {
+            var inputs = []
+            var outputs = []
+
+            for (var j = 0; j < result[i].inputs.length; j++) {
+              inputs.push({
+                temeljni: result[i].inputs[j].coinbase,
+                pošiljalac: result[i].inputs[j].sender,
+                vrijednost: result[i].inputs[j].value
+              })
+            }
+
+            for (var j = 0; j < result[i].outputs.length; j++) {
+              outputs.push({
+                primalac: result[i].outputs[j].recipient,
+                vrijednost: result[i].outputs[j].value
+              })
+            }
+
+            translation.push({
+              transakcija: result[i].transaction,
+              blok: result[i].block,
+              potvrđena: result[i].confirmed,
+              ulazi: inputs,
+              izlazi: outputs,
+              datum: result[i].timestamp,
+              vrijednost: result[i].value
+            })
+          }
+
+          res.json(translation)
           db.close()
         }
       )
     })
   } else {
-    res.json({ error: true, message: 'Adresa nije važeća.' })
+    res.json({ greška: true, poruka: 'Adresa nije važeća.' })
   }
 })
 
@@ -125,10 +163,10 @@ app.get('/aps/v1.0/blok', function (req, res) {
     if (hashReg.test(hash)) {
       client.getBlock(hash).then((result) => res.json(result))
       .catch((error) => {
-        res.json({ error: true, message: 'Rezultat bloka nije poznat.' })
+        res.json({ greška: true, poruka: 'Rezultat bloka nije poznat.' })
       })
     } else {
-      res.json({ error: true, message: 'Rezultat bloka nije važeći.' })
+      res.json({ greška: true, poruka: 'Rezultat bloka nije važeći.' })
     }
   } else if (typeof req.query.pozicija != 'undefined') {
     const index = parseInt(req.query.pozicija)
@@ -138,20 +176,34 @@ app.get('/aps/v1.0/blok', function (req, res) {
         if (info.blocks >= index) {
           client.getBlockHash(index).then(hash => {
             client.getBlock(hash).then(result => {
-              res.json(result)
+              res.json({
+                rezultat: result.hash,
+                potvrde: result.confirmations,
+                veličina: result.size,
+                pozicija: result.height,
+                verzija: result.version,
+                rezultatTransakcija: result.merkleroot,
+                transakcije: result.tx,
+                datum: result.time,
+                razmak: result.nonce,
+                jedinice: result.bits,
+                težina: result.difficulty,
+                rezultatPrethodnogBloka: result.previousblockhash,
+                rezultatSljedećegBloka: result.nextblockhash
+              })
             })
           })
         } else {
-          res.json({ error: true, message: 'Pozicija bloka je veća od trenutačne visine lanca blokova.' })
+          res.json({ greška: true, poruka: 'Pozicija bloka je veća od trenutačne visine lanca blokova.' })
         }
       })
     } else {
-      res.json({ error: true, message: 'Pozicija bloka je negativna ili nije broj.' })
+      res.json({ greška: true, poruka: 'Pozicija bloka je negativna ili nije broj.' })
     }
   }
   else
   {
-    res.json({ error: true, message: 'Potreban je rezultat bloka ili njegova pozicija.' })
+    res.json({ greška: true, poruka: 'Potreban je rezultat bloka ili njegova pozicija.' })
   }
 })
 
@@ -161,15 +213,29 @@ app.get('/aps/v1.0/blokputemrezultata', function (req, res) {
     const hashReg = new RegExp('^([a-zA-Z0-9]{64})$')
 
     if (hashReg.test(hash)) {
-      client.getBlock(hash).then((result) => res.json(result))
+      client.getBlock(hash).then((result) => res.json({
+        rezultat: result.hash,
+        potvrde: result.confirmations,
+        veličina: result.size,
+        pozicija: result.height,
+        verzija: result.version,
+        rezultatTransakcija: result.merkleroot,
+        transakcije: result.tx,
+        datum: result.time,
+        razmak: result.nonce,
+        jedinice: result.bits,
+        težina: result.difficulty,
+        rezultatPrethodnogBloka: result.previousblockhash,
+        rezultatSljedećegBloka: result.nextblockhash
+      }))
       .catch((error) => {
-        res.json({ error: true, message: 'Rezultat bloka nije poznat.' })
+        res.json({ greška: true, poruka: 'Rezultat bloka nije poznat.' })
       })
     } else {
-      res.json({ error: true, message: 'Rezultat bloka nije važeći.' })
+      res.json({ greška: true, poruka: 'Rezultat bloka nije važeći.' })
     }
   } else {
-    res.json({ error: true, message: 'Potreban je rezultat bloka.' })
+    res.json({ greška: true, poruka: 'Potreban je rezultat bloka.' })
   }
 })
 
@@ -182,25 +248,47 @@ app.get('/aps/v1.0/blokputempozicije', function (req, res) {
         if (info.blocks >= index) {
           client.getBlockHash(index).then(hash => {
             client.getBlock(hash).then(result => {
-              res.json(result)
+              res.json({
+                rezultat: result.hash,
+                potvrde: result.confirmations,
+                veličina: result.size,
+                pozicija: result.height,
+                verzija: result.version,
+                rezultatTransakcija: result.merkleroot,
+                transakcije: result.tx,
+                datum: result.time,
+                razmak: result.nonce,
+                jedinice: result.bits,
+                težina: result.difficulty,
+                rezultatPrethodnogBloka: result.previousblockhash,
+                rezultatSljedećegBloka: result.nextblockhash
+              })
             })
           })
         } else {
-          res.json({ error: true, message: 'Pozicija bloka je veća od trenutačne visine lanca blokova.' })
+          res.json({ greška: true, poruka: 'Pozicija bloka je veća od trenutačne visine lanca blokova.' })
         }
       })
     } else {
-      res.json({ error: true, message: 'Pozicija bloka je negativna ili nije broj.' })
+      res.json({ greška: true, poruka: 'Pozicija bloka je negativna ili nije broj.' })
     }
   }
   else
   {
-    res.json({ error: true, message: 'Potrebna je pozicija bloka.' })
+    res.json({ greška: true, poruka: 'Potrebna je pozicija bloka.' })
   }
 })
 
 app.get('/aps/v1.0/lanacblokova', function (req, res) {
-  client.getBlockchainInfo().then((result) => res.json(result))
+  client.getBlockchainInfo().then((result) => res.json({
+    blokovi: result.blocks,
+    nFaktor: result.nfactor,
+    nMultiplikator: result.nmultiplicator,
+    k25Aktivan: result.k25active,
+    vremenskiRazmak: result.timeoffset,
+    eksperimentalnaMreža: result.testnet,
+    greške: result.errors
+  }))
 })
 
 app.get('/aps/v1.0/rezultatbloka', function (req, res) {
@@ -214,16 +302,16 @@ app.get('/aps/v1.0/rezultatbloka', function (req, res) {
             res.json(hash)
           })
         } else {
-          res.json({ error: true, message: 'Pozicija bloka je veća od trenutačne visine lanca blokova.' })
+          res.json({ greška: true, poruka: 'Pozicija bloka je veća od trenutačne visine lanca blokova.' })
         }
       })
     } else {
-      res.json({ error: true, message: 'Pozicija bloka je negativna ili nije broj.' })
+      res.json({ greška: true, poruka: 'Pozicija bloka je negativna ili nije broj.' })
     }
   }
   else
   {
-    res.json({ error: true, message: 'Potrebna je pozicija bloka.' })
+    res.json({ greška: true, poruka: 'Potrebna je pozicija bloka.' })
   }
 })
 
@@ -247,7 +335,21 @@ app.get('/aps/v1.0/zadnjiblokovi', function (req, res) {
       if (height >= 0) {
         client.getBlockHash(height).then((hash) => {
           client.getBlock(hash).then((result) => {
-            blocks[bestHeight - result.height] = result
+            blocks[bestHeight - result.height] = {
+              rezultat: result.hash,
+              potvrde: result.confirmations,
+              veličina: result.size,
+              pozicija: result.height,
+              verzija: result.version,
+              rezultatTransakcija: result.merkleroot,
+              transakcije: result.tx,
+              datum: result.time,
+              razmak: result.nonce,
+              jedinice: result.bits,
+              težina: result.difficulty,
+              rezultatPrethodnogBloka: result.previousblockhash,
+              rezultatSljedećegBloka: result.nextblockhash
+            }
             calculated++
 
             if (calculated == 10) {
@@ -256,7 +358,7 @@ app.get('/aps/v1.0/zadnjiblokovi', function (req, res) {
           })
         })
       } else {
-        blocks[i] = { error: true, message: 'Blok ima negativnu poziciju.' }
+        blocks[i] = { greška: true, poruka: 'Blok ima negativnu poziciju.' }
         calculated++
 
         if (calculated == 10) {
@@ -285,31 +387,75 @@ app.get('/aps/v1.0/zadnjetransakcije', function (req, res) {
         throw err;
       }
 
-      res.json(result);
+      var translation = []
+
+      for (var i = 0; i < result.length; i++) {
+        var inputs = []
+        var outputs = []
+
+        for (var j = 0; j < result[i].inputs.length; j++) {
+          inputs.push({
+            temeljni: result[i].inputs[j].coinbase,
+            pošiljalac: result[i].inputs[j].sender,
+            vrijednost: result[i].inputs[j].value
+          })
+        }
+
+        for (var j = 0; j < result[i].outputs.length; j++) {
+          outputs.push({
+            primalac: result[i].outputs[j].recipient,
+            vrijednost: result[i].outputs[j].value
+          })
+        }
+
+        translation.push({
+          pozicija: result[i]._id,
+          transakcija: result[i].transaction,
+          blok: result[i].block,
+          potvrđena: result[i].confirmed,
+          ulazi: inputs,
+          izlazi: outputs,
+          datum: result[i].timestamp,
+          vrijednost: result[i].value
+        })
+      }
+
+      res.json(translation)
       db.close();
     });
   });
 })
 
 app.get('/aps/v1.0/rudarenje', function (req, res) {
-  client.getMiningInfo().then((result) => res.json(result))
+  client.getMiningInfo().then((result) => res.json({
+    blokovi: result.blocks,
+    nFaktor: result.nfactor,
+    k25Aktivan: result.k25active,
+    trenutačnaVeličinaBloka: result.currentblocksize,
+    trenutačniBrojTransakcija: result.currentblocktx,
+    težina: result.difficulty,
+    greške: result.errors,
+    rudarskaJačinaMreže: result.networkhashps,
+    transakcijeUIščekivanju: result.pooledtx,
+    eksperimentalnaMreža: result.testnet
+  }))
 })
 
 app.get('/aps/v1.0/izvornatransakcija', function (req, res) {
-  if (typeof req.query.broj != 'undefined') {
-    const id = req.query.broj
+  if (typeof req.query.rezultat != 'undefined') {
+    const id = req.query.rezultat
     const idReg = new RegExp('^([a-zA-Z0-9]{64})$')
 
-    if (hashReg.test(id)) {
+    if (idReg.test(id)) {
       client.getRawTransaction(id).then((result) => res.json(result))
       .catch((error) => {
-        res.json({ error: true, message: 'Broj transakcije nije poznat.' })
+        res.json({ greška: true, poruka: 'Rezultat transakcije nije poznat.' })
       })
     } else {
-      res.json({ error: true, message: 'Broj transakcije nije važeći.' })
+      res.json({ greška: true, poruka: 'Rezultat transakcije nije važeći.' })
     }
   } else {
-    res.json({ error: true, message: 'Potreban je broj transakcije.' })
+    res.json({ greška: true, poruka: 'Potreban je rezultat transakcije.' })
   }
 })
 
@@ -327,7 +473,9 @@ app.get('/aps/v1.0/proizvod', function (req, res) {
           throw err
         }
 
-        res.json({ confirmed: result.supply, unconfirmed: result.unconfirmedSupply })
+        res.json({
+          potvrđeno: result.supply, nepotvrđeno: result.unconfirmedSupply
+        })
         db.close()
       }
     )
@@ -353,7 +501,34 @@ app.get('/aps/v1.0/transakcija', function (req, res) {
             throw err
           }
 
-          res.json(result)
+          var inputs = []
+          var outputs = []
+
+          for (var i = 0; i < result.inputs.length; i++) {
+            inputs.push({
+              temeljni: result.inputs[i].coinbase,
+              pošiljalac: result.inputs[i].sender,
+              vrijednost: result.inputs[i].value
+            })
+          }
+
+          for (var i = 0; i < result.outputs.length; i++) {
+            outputs.push({
+              primalac: result.outputs[i].recipient,
+              vrijednost: result.outputs[i].value
+            })
+          }
+
+          res.json({
+            pozicija: result._id,
+            transakcija: result.transaction,
+            blok: result.block,
+            potvrđena: result.confirmed,
+            ulazi: inputs,
+            izlazi: outputs,
+            datum: result.timestamp,
+            vrijednost: result.value
+          })
           db.close()
         }
       )
@@ -372,13 +547,40 @@ app.get('/aps/v1.0/transakcija', function (req, res) {
             throw err
           }
 
-          res.json(result)
+          var inputs = []
+          var outputs = []
+
+          for (var i = 0; i < result.inputs.length; i++) {
+            inputs.push({
+              temeljni: result.inputs[i].coinbase,
+              pošiljalac: result.inputs[i].sender,
+              vrijednost: result.inputs[i].value
+            })
+          }
+
+          for (var i = 0; i < result.outputs.length; i++) {
+            outputs.push({
+              primalac: result.outputs[i].recipient,
+              vrijednost: result.outputs[i].value
+            })
+          }
+
+          res.json({
+            pozicija: result._id,
+            transakcija: result.transaction,
+            blok: result.block,
+            potvrđena: result.confirmed,
+            ulazi: inputs,
+            izlazi: outputs,
+            datum: result.timestamp,
+            vrijednost: result.value
+          })
           db.close()
         }
       )
     })
   } else {
-    res.json({ error: true, message: 'Identifikator transakcije nije ni rezultat transakcije ni broj.' })
+    res.json({ greška: true, poruka: 'Identifikator transakcije nije ni rezultat transakcije ni broj.' })
   }
 })
 
@@ -393,9 +595,9 @@ app.get('/aps/v1.0/pretraga', function (req, res) {
 
     client.getBlockchainInfo().then(info => {
       if (info.blocks >= index) {
-        res.json({ url: '/blok/' + index })
+        res.json({ putanja: '/blok/' + index })
       } else {
-        res.json({ error: true, message: 'Pozicija bloka je veća od visine lanca blokova.' })
+        res.json({ greška: true, poruka: 'Pozicija bloka je veća od visine lanca blokova.' })
       }
     })
   } else if (hashReg.test(string)) {
@@ -413,12 +615,12 @@ app.get('/aps/v1.0/pretraga', function (req, res) {
           }
 
           if (result) {
-            res.json({ url: '/transakcija/' + string })
+            res.json({ putanja: '/transakcija/' + string })
           } else {
             client.getBlock(string).then(block => {
-              res.json({ url: '/blok/' + string })
+              res.json({ putanja: '/blok/' + string })
             }).catch(error => {
-              res.json({ error: true, message: 'Tekst nije poznat ni kao rezultat bloka ni kao rezultat transakcije.' })
+              res.json({ greška: true, poruka: 'Tekst nije poznat ni kao rezultat bloka ni kao rezultat transakcije.' })
             })
           }
         }
@@ -439,17 +641,17 @@ app.get('/aps/v1.0/pretraga', function (req, res) {
           }
 
           if (result) {
-            res.json({ url: '/adresa/' + string })
+            res.json({ putanja: '/adresa/' + string })
           }
           else {
-            res.json({ error: true, message: 'Adresa nije poznata.' })
+            res.json({ greška: true, poruka: 'Adresa nije poznata.' })
           }
           db.close()
         }
       )
     })
   } else {
-    res.json({ error: true, message: 'Tekst nije u prepoznatljivom formatu.' })
+    res.json({ greška: true, poruka: 'Tekst nije u prepoznatljivom formatu.' })
   }
 })
 
