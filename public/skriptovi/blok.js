@@ -21,12 +21,12 @@ function getBlock()
     {
       const result = JSON.parse(this.responseText);
 
-      const height = result.height;
-      var date = new Date(result.time * 1000);
+      const height = result.pozicija;
+      var date = new Date(result.datum * 1000);
       date = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + " " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-      const merkleRoot = result.merkleroot;
-      const confirmations = result.confirmations;
-      const difficulty = result.difficulty
+      const merkleRoot = result.rezultatTransakcija;
+      const confirmations = result.potvrde;
+      const difficulty = result.težina;
 
       document.getElementById("blockHeight").innerHTML = height;
       document.getElementById("blockTime").innerHTML = date;
@@ -36,7 +36,7 @@ function getBlock()
 
       if(height > 0)
       {
-        for(var i = 0; i < result.tx.length; i++)
+        for(var i = 0; i < result.transakcije.length; i++)
         {
           document.getElementById("blockTransactions").innerHTML += "\
             <div class=\"block-tr block-tr--values\">\
@@ -44,15 +44,15 @@ function getBlock()
                 " + (i + 1) + "\
               </div>\
               <div class=\"block-td\">\
-                <a href=\"/transaction/" + result.tx[i] + "\">\
-                  " + result.tx[i] + "\
+                <a href=\"/transakcija/" + result.transakcije[i] + "\">\
+                  " + result.transakcije[i] + "\
                 </a>\
               </div>\
               <div class=\"block-td " + ((i <= 1) ? "affirmative" : "negative") + "\">\
-                " + ((i <= 1) ? "Yes" : "No") + "\
+                " + ((i <= 1) ? "Da" : "Ne") + "\
               </div>\
               <div class=\"block-td negative\">\
-                No\
+                Ne\
               </div>\
             </div>\
           ";
@@ -60,7 +60,7 @@ function getBlock()
       }
       else
       {
-        for(var i = 0; i < result.tx.length; i++)
+        for(var i = 0; i < result.transakcije.length; i++)
         {
           document.getElementById("blockTransactions").innerHTML += "\
             <div class=\"block-tr block-tr--values\">\
@@ -68,13 +68,13 @@ function getBlock()
                 " + (i + 1) + "\
               </div>\
               <div class=\"block-td\">\
-                " + result.tx[i] + "\
+                " + result.transakcije[i] + "\
               </div>\
               <div class=\"block-td affirmative\">\
-                Yes\
+                Da\
               </div>\
               <div class=\"block-td affirmative\">\
-                Yes\
+                Da\
               </div>\
             </div>\
           ";
@@ -83,7 +83,7 @@ function getBlock()
     }
   };
 
-  xhttp.open("GET", "/api/v1.0/getblock?hash=" + document.getElementById("block").innerHTML, true);
+  xhttp.open("GET", "/aps/v1.0/blokputemrezultata?rezultat=" + document.getElementById("block").innerHTML, true);
   xhttp.send();
 }
 

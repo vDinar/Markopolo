@@ -17,17 +17,17 @@ function search()
     {
       const result = JSON.parse(this.responseText);
 
-      if(result.hasOwnProperty("error"))
+      if(result.hasOwnProperty("greška"))
       {
-        alert(result.message);
+        alert(result.poruka);
       }
       else
       {
-        window.location.href = result.url;
+        window.location.href = result.putanja;
       }
     }
   };
 
-  xhttp.open("GET", "/api/v1.0/search?string=" + document.getElementById("searchText").value, true);
+  xhttp.open("GET", "/aps/v1.0/pretraga?tekst=" + document.getElementById("searchText").value, true);
   xhttp.send();
 }

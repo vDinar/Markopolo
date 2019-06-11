@@ -21,8 +21,8 @@ function updateCoinInfo()
     {
       const miningInfo = JSON.parse(this.responseText);
 
-      const hashrate = (miningInfo.networkhashps / 1024 / 1024).toFixed(3);
-      const difficulty = (miningInfo.difficulty).toFixed(3);
+      const hashrate = (miningInfo.rudarskaJačinaMreže / 1024 / 1024).toFixed(3);
+      const difficulty = (miningInfo.težina).toFixed(3);
 
       xhttp.onreadystatechange = function()
       {
@@ -30,7 +30,7 @@ function updateCoinInfo()
         {
           const supplyInfo = JSON.parse(this.responseText);
 
-          const supply = (supplyInfo.confirmed + supplyInfo.unconfirmed).toFixed(2);
+          const supply = (supplyInfo.potvrđeno + supplyInfo.nepotvrđeno).toFixed(2);
 
           document.getElementById("coinInfoHashrate").innerHTML = hashrate;
           document.getElementById("coinInfoDifficulty").innerHTML = difficulty;
@@ -39,12 +39,12 @@ function updateCoinInfo()
         }
       }
 
-      xhttp.open("GET", "/api/v1.0/getsupply", true);
+      xhttp.open("GET", "/aps/v1.0/proizvod", true);
       xhttp.send();
     }
   };
 
-  xhttp.open("GET", "/api/v1.0/getmininginfo", true);
+  xhttp.open("GET", "/aps/v1.0/rudarenje", true);
   xhttp.send();
 }
 

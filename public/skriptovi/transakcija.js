@@ -19,18 +19,18 @@ function getTransaction()
     {
       const result = JSON.parse(this.responseText);
 
-      const id = result._id;
-      const value = result.value;
-      const block = result.block;
-      var date = new Date(result.timestamp * 1000);
+      const id = result.pozicija;
+      const value = result.vrijednost;
+      const block = result.blok;
+      var date = new Date(result.datum * 1000);
       date = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + " " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-      const inputs = result.inputs;
-      const outputs = result.outputs;
+      const inputs = result.ulazi;
+      const outputs = result.izlazi;
 
       document.getElementById("transactionId").innerHTML = id;
       document.getElementById("transactionValue").innerHTML = value;
       document.getElementById("transactionBlock").innerHTML = "\
-        <a href=\"/block/" + block + "\">\
+        <a href=\"/blok/" + block + "\">\
           " + block + "\
         </a>\
       ";
@@ -39,12 +39,12 @@ function getTransaction()
       for(var i = 0; i < inputs.length; i++)
       {
         document.getElementById("transactionInputs").innerHTML += "\
-            <div class='inputs-tr inputs-tr--values" + (inputs[i].coinbase ? " inputs-tr--coinbase" : "") + "'>\
+            <div class='inputs-tr inputs-tr--values" + (inputs[i].temeljni ? " inputs-tr--coinbase" : "") + "'>\
               <div class='inputs-td'>\
-                " + (inputs[i].coinbase ? "Coinbase" : ("<a href=\"/address/" + inputs[i].sender + "\">" + inputs[i].sender + "</a>")) + "\
+                " + (inputs[i].temeljni ? "Novoproizvedeno" : ("<a href=\"/adresa/" + inputs[i].pošiljalac + "\">" + inputs[i].pošiljalac + "</a>")) + "\
               </div>\
               <div class='inputs-td'>\
-                " + inputs[i].value + " VDN\
+                " + inputs[i].vrijednost + " VDN\
               </div>\
             </div>\
           ";
@@ -55,10 +55,10 @@ function getTransaction()
         document.getElementById("transactionOutputs").innerHTML += "\
             <div class='outputs-tr outputs-tr--values'>\
               <div class='outputs-td'>\
-                " + "<a href=\"/address/" + outputs[i].recipient + "\">" + outputs[i].recipient + "</a>\
+                " + "<a href=\"/adresa/" + outputs[i].primalac + "\">" + outputs[i].primalac + "</a>\
               </div>\
               <div class='outputs-td'>\
-                " + outputs[i].value + " VDN\
+                " + outputs[i].vrijednost + " VDN\
               </div>\
             </div>\
           ";
@@ -66,7 +66,7 @@ function getTransaction()
     }
   };
 
-  xhttp.open("GET", "/api/v1.0/gettransaction?id=" + document.getElementById("transaction").innerHTML, true);
+  xhttp.open("GET", "/aps/v1.0/transakcija?identifikator=" + document.getElementById("transaction").innerHTML, true);
   xhttp.send();
 }
 

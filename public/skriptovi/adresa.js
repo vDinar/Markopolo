@@ -30,22 +30,22 @@ function getAddressTransactions()
       {
         value = 0;
 
-        date = new Date(result[i].timestamp * 1000);
+        date = new Date(result[i].datum * 1000);
         date = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + " " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
-        for(var j = 0; j < result[i].inputs.length; j++)
+        for(var j = 0; j < result[i].ulazi.length; j++)
         {
-          if(result[i].inputs[j].sender == address)
+          if(result[i].ulazi[j].pošiljalac == address)
           {
-            value -= result[i].inputs[j].value;
+            value -= result[i].ulazi[j].vrijednost;
           }
         }
 
-        for(var j = 0; j < result[i].outputs.length; j++)
+        for(var j = 0; j < result[i].izlazi.length; j++)
         {
-          if(result[i].outputs[j].recipient == address)
+          if(result[i].izlazi[j].primalac == address)
           {
-            value += result[i].outputs[j].value;
+            value += result[i].izlazi[j].vrijednost;
           }
         }
 
@@ -55,7 +55,7 @@ function getAddressTransactions()
               " + date + "\
             </div>\
             <div class=\"address-td\">\
-              <a href=\"/transaction/" + result[i].transaction + "\">" + result[i].transaction + "</a>\
+              <a href=\"/transakcija/" + result[i].transakcija + "\">" + result[i].transakcija + "</a>\
             </div>\
             <div class=\"address-td " + ((value > 0) ? "received" : "spent") + "\">\
               <span class=\"value\">" + ((value > 0) ? "+" : "") + value + "</span>\
@@ -76,7 +76,7 @@ function getAddressTransactions()
     }
   };
 
-  xhttp.open("GET", "/api/v1.0/getaddresstransactions?address=" + address, true);
+  xhttp.open("GET", "/aps/v1.0/adresnetransakcije?adresa=" + address, true);
   xhttp.send();
 }
 
@@ -101,8 +101,8 @@ function getAddress()
     {
       const result = JSON.parse(this.responseText);
 
-      const received = result.received + result.unconfirmedReceived;
-      const spent = result.spent + result.unconfirmedSpent;
+      const received = result.primljeno + result.nepotvrđenoPrimljeno;
+      const spent = result.potrošeno + result.nepotvrđenoPotrošeno;
       const credit = received - spent;
 
       document.getElementById("addressCredit").innerHTML = credit;
@@ -113,7 +113,7 @@ function getAddress()
     }
   };
 
-  xhttp.open("GET", "/api/v1.0/getaddress?address=" + address, true);
+  xhttp.open("GET", "/aps/v1.0/adresa?adresa=" + address, true);
   xhttp.send();
 }
 

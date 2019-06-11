@@ -26,20 +26,20 @@ function updateTransactions()
       var transaction = "";
       for(var i = 0; i < result.length; i++)
       {
-        date = new Date(result[i].timestamp * 1000);
+        date = new Date(result[i].datum * 1000);
         date = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + " " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
-        id = result[i]._id;
-        transaction = result[i].transaction;
+        id = result[i].pozicija;
+        transaction = result[i].transakcija;
 
-        document.getElementById("transactionIndex" + (i + 1)).innerHTML = "<a href='/transaction/" + id + "'>" + id + "</a>";
-        document.getElementById("transactionHash" + (i + 1)).innerHTML = "<a href='/transaction/" + transaction + "'>" + transaction + "</a>";
+        document.getElementById("transactionIndex" + (i + 1)).innerHTML = "<a href='/transakcija/" + id + "'>" + id + "</a>";
+        document.getElementById("transactionHash" + (i + 1)).innerHTML = "<a href='/transakcija/" + transaction + "'>" + transaction + "</a>";
         document.getElementById("transactionTime" + (i + 1)).innerHTML = date;
       }
     }
   };
 
-  xhttp.open("GET", "/api/v1.0/getlasttransactions?page=" + page, true);
+  xhttp.open("GET", "/aps/v1.0/zadnjetransakcije?stranica=" + page, true);
   xhttp.send();
 }
 

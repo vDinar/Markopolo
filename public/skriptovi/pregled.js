@@ -24,21 +24,21 @@ function updateBlocks()
       for(var i = 0; i < result.length; i++)
       {
         document.getElementById("blockIndex" + (i + 1)).innerHTML = "\
-          <a href=\"/block/" + result[i].height + "\">\
-            " + result[i].height + "\
+          <a href=\"/blok/" + result[i].pozicija + "\">\
+            " + result[i].pozicija + "\
           </a>\
         ";
         document.getElementById("blockHash" + (i + 1)).innerHTML = "\
-          <a href=\"/block/" + result[i].hash + "\">\
-            " + result[i].hash + "\
+          <a href=\"/blok/" + result[i].rezultat + "\">\
+            " + result[i].rezultat + "\
           </a>\
         ";
-        document.getElementById("blockTxCount" + (i + 1)).innerHTML = result[i].tx.length;
+        document.getElementById("blockTxCount" + (i + 1)).innerHTML = result[i].transakcije.length;
       }
     }
   };
 
-  xhttp.open("GET", "/api/v1.0/getlastblocks?page=" + page, true);
+  xhttp.open("GET", "/aps/v1.0/zadnjiblokovi?stranica=" + page, true);
   xhttp.send();
 }
 
