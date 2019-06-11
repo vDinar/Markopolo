@@ -3,9 +3,9 @@ html
   head
     include includes/head.pug
     |
-    script(src='/scripts/info.js')
-    script(src='/scripts/search.js')
-    script(src='/scripts/summary.js')
+    script(src='/skriptovi/info.js')
+    script(src='/skriptovi/pregled.js')
+    script(src='/skriptovi/pretraga.js')
   body
     include includes/header.pug
     |
@@ -13,33 +13,33 @@ html
       div(class='summary')
         div(class='coin-info')
           div(class='preview')
-            img(src='/images/coin.png')
+            img(src='/slike/valuta.png')
           div(class='info-table')
             div(class='info-tr')
-              div(class='name') Net hashrate (MH/s)
+              div(class='name') Rudarska jačina (MH/s)
               div(class='value', id='coinInfoHashrate') -
             div(class='info-tr')
-              div(class='name') Difficulty
+              div(class='name') Rudarska težina
               div(class='value', id='coinInfoDifficulty') -
             div(class='info-tr')
-              div(class='name') Supply
+              div(class='name') Proizvedeno
               div(class='value', id='coinInfoSupply') -
           a(href='https://www.vdinar.info', target='_blank')
             div(class='website')
-              div(class='title') vDinar's official website
+              div(class='title') Službena stranica
               div(class='url') https://www.vdinar.info
         div(class='last-blocks')
           div(class='container')
             div(class='content')
               div(class='search-bar')
                 form(onsubmit='search(); return false;')
-                  input(id='searchText', placeholder='Search for block indexes, block hashes, transactions or addresses...', type='text')
-                  input(type='submit', value='Search')
+                  input(id='searchText', placeholder='Traži poziciju bloka, rezultat bloka, transakciju ili adresu...', type='text')
+                  input(type='submit', value='Traži')
               div(class='blocks-table')
                 div(class='blocks-tr blocks-tr--main')
-                  div(class='blocks-td') Block index
-                  div(class='blocks-td') Block hash
-                  div(class='blocks-td') Tx. count
+                  div(class='blocks-td') Pozicija
+                  div(class='blocks-td') Rezultat bloka
+                  div(class='blocks-td') Broj transakcija
                 - for (var i = 1; i <= 10; i++)
                   div(class='blocks-tr blocks-tr--values', id='block' + i)
                     div(class='blocks-td', id='blockIndex' + i)

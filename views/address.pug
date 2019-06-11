@@ -37,28 +37,28 @@ html
                   input(type='submit', value='Traži')
               div(class='address-main')
                 div(class='address-tr address-tr--main')
-                  div(class='address-td')= 'Adresa'
-                  div(class='address-td')= 'Kredit'
+                  div(class='address-td') Adresa
+                  div(class='address-td') Kredit
                 div(class='address-tr address-tr--values')
                   div(class='address-td' id='address')= address
                   div(class='address-td credit')
                     span(class='credit' id='addressCredit')
-                    span(class='currency')= ' VDN'
+                    span(class='currency')  VDN
               div(class='address-summary')
                 div(class='address-tr address-tr--main')
-                  div(class='address-td')= 'Primljeno'
-                  div(class='address-td')= 'Potrošeno'
+                  div(class='address-td') Primljeno
+                  div(class='address-td') Potrošeno
                 div(class='address-tr address-tr--values')
                   div(class='address-td received')
                     span(class='value' id='addressReceived')
-                    span(class='currency')= ' VDN'
+                    span(class='currency')  VDN
                   div(class='address-td spent')
                     span(class='value' id='addressSpent')
-                    span(class='currency')= ' VDN'
+                    span(class='currency')  VDN
               div(class='address-transactions' id='addressTransactions')
                 div(class='address-tr address-tr--main')
-                  div(class='address-td')= 'Datum'
-                  div(class='address-td')= 'Transakcija'
-                  div(class='address-td')= 'Vrijednost'
+                  div(class='address-td') Datum
+                  div(class='address-td') Transakcija
+                  div(class='address-td') Vrijednost
     |
     include includes/footer.pug

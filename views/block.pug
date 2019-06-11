@@ -3,9 +3,9 @@ html
   head
     include includes/head.pug
     |
-    script(src='/scripts/block.js')
-    script(src='/scripts/info.js')
-    script(src='/scripts/search.js')
+    script(src='/skriptovi/blok.js')
+    script(src='/skriptovi/info.js')
+    script(src='/skriptovi/pretraga.js')
   body
     include includes/header.pug
     |
@@ -13,51 +13,51 @@ html
       div(class='block')
         div(class='coin-info')
           div(class='preview')
-            img(src='/images/coin.png')
+            img(src='/slike/valuta.png')
           div(class='info-table')
             div(class='info-tr')
-              div(class='name') Net hashrate (MH/s)
+              div(class='name') Rudarska jačina (MH/s)
               div(class='value', id='coinInfoHashrate') -
             div(class='info-tr')
-              div(class='name') Difficulty
+              div(class='name') Rudarska težina
               div(class='value', id='coinInfoDifficulty') -
             div(class='info-tr')
-              div(class='name') Supply
+              div(class='name') Proizvedeno
               div(class='value', id='coinInfoSupply') -
           a(href='https://www.vdinar.info', target='_blank')
             div(class='website')
-              div(class='title') vDinar's official website
+              div(class='title') Službena stranica
               div(class='url') https://www.vdinar.info
         div(class='block-info')
           div(class='container')
             div(class='content')
               div(class='search-bar')
                 form(onsubmit='search(); return false;')
-                  input(id='searchText', placeholder='Search for block indexes, block hashes, transactions or addresses...', type='text')
-                  input(type='submit', value='Search')
+                  input(id='searchText', placeholder='Traži poziciju bloka, rezultat bloka, transakciju ili adresu...', type='text')
+                  input(type='submit', value='Traži')
               div(class='block-main')
                 div(class='block-tr block-tr--main')
-                  div(class='block-td')= 'Height'
-                  div(class='block-td')= 'Block hash'
-                  div(class='block-td')= 'Time'
+                  div(class='block-td') Pozicija
+                  div(class='block-td') Rezultat bloka
+                  div(class='block-td') Datum
                 div(class='block-tr block-tr--values')
                   div(class='block-td' id='blockHeight')
                   div(class='block-td' id='block')= block
                   div(class='block-td' id='blockTime')
               div(class='block-summary')
                 div(class='block-tr block-tr--main')
-                  div(class='block-td')= 'Merkle root'
-                  div(class='block-td')= 'Confirmations'
-                  div(class='block-td')= 'Difficulty'
+                  div(class='block-td') Rezultat transakcija
+                  div(class='block-td') Potvrde
+                  div(class='block-td') Težina
                 div(class='block-tr block-tr--values')
                   div(class='block-td' id='blockMerkle')
                   div(class='block-td' id='blockConfirmations')
                   div(class='block-td' id='blockDifficulty')
               div(class='block-transactions' id='blockTransactions')
                 div(class='block-tr block-tr--main')
-                  div(class='block-td')= 'Id'
-                  div(class='block-td')= 'Transaction'
-                  div(class='block-td')= 'Coinbase'
-                  div(class='block-td')= 'Genesis'
+                  div(class='block-td') Broj
+                  div(class='block-td') Transakcija
+                  div(class='block-td') Temeljna
+                  div(class='block-td') Polazna
     |
     include includes/footer.pug

@@ -3,9 +3,9 @@ html
   head
     include includes/head.pug
     |
-    script(src='/scripts/info.js')
-    script(src='/scripts/search.js')
-    script(src='/scripts/transaction.js')
+    script(src='/skriptovi/info.js')
+    script(src='/skriptovi/pretraga.js')
+    script(src='/skriptovi/transakcija.js')
   body
     include includes/header.pug
     |
@@ -13,60 +13,60 @@ html
       div(class='transaction')
         div(class='coin-info')
           div(class='preview')
-            img(src='/images/coin.png')
+            img(src='/slike/valuta.png')
           div(class='info-table')
             div(class='info-tr')
-              div(class='name') Net hashrate (MH/s)
+              div(class='name') Rudarska jačina (MH/s)
               div(class='value', id='coinInfoHashrate') -
             div(class='info-tr')
-              div(class='name') Difficulty
+              div(class='name') Rudarska težina
               div(class='value', id='coinInfoDifficulty') -
             div(class='info-tr')
-              div(class='name') Supply
+              div(class='name') Proizvedeno
               div(class='value', id='coinInfoSupply') -
           a(href='https://www.vdinar.info', target='_blank')
             div(class='website')
-              div(class='title') vDinar's official website
+              div(class='title') Službena stranica
               div(class='url') https://www.vdinar.info
         div(class='transaction-info')
           div(class='container')
             div(class='content')
               div(class='search-bar')
                 form(onsubmit='search(); return false;')
-                  input(id='searchText', placeholder='Search for block indexes, block hashes, transactions or addresses...', type='text')
-                  input(type='submit', value='Search')
+                  input(id='searchText', placeholder='Traži poziciju bloka, rezultat bloka, transakciju ili adresu...', type='text')
+                  input(type='submit', value='Traži')
               div(class='transaction-main')
                 div(class='transaction-tr transaction-tr--main')
-                  div(class='transaction-td')= 'Id'
-                  div(class='transaction-td')= 'Transaction'
-                  div(class='transaction-td')= 'Value'
+                  div(class='transaction-td') Pozicija
+                  div(class='transaction-td') Transakcija
+                  div(class='transaction-td') Vrijednost
                 div(class='transaction-tr transaction-tr--values')
                   div(class='transaction-td' id='transactionId')
                   div(class='transaction-td' id='transaction')= transaction
                   div(class='transaction-td')
                     span(class='value' id='transactionValue')
-                    span(class='currency')= ' VDN'
+                    span(class='currency')  VDN
               div(class='transaction-block')
                 div(class='transaction-tr transaction-tr--main')
-                  div(class='transaction-td')= 'Block'
-                  div(class='transaction-td')= 'Time'
+                  div(class='transaction-td') Blok
+                  div(class='transaction-td') Datum
                 div(class='transaction-tr transaction-tr--values')
                   div(class='transaction-td' id='transactionBlock')
                   div(class='transaction-td' id='transactionTime')
               div(class='transaction-summary')
                 div(class='transaction-tr transaction-tr--main')
-                  div(class='transaction-td')= 'Inputs'
-                  div(class='transaction-td')= 'Outputs'
+                  div(class='transaction-td') Ulazi
+                  div(class='transaction-td') Izlazi
                 div(class='transaction-tr transaction-tr--values')
                   div(class='transaction-td')
                     div(class='inputs-table' id='transactionInputs')
                       div(class='inputs-tr inputs-tr--main')
-                        div(class='inputs-td')= 'Source'
-                        div(class='inputs-td')= 'Amount'
+                        div(class='inputs-td') Izvor
+                        div(class='inputs-td') Količina
                   div(class='transaction-td')
                     div(class='outputs-table' id='transactionOutputs')
                       div(class='outputs-tr outputs-tr--main')
-                        div(class='outputs-td')= 'Recipient'
-                        div(class='outputs-td')= 'Amount'
+                        div(class='outputs-td') Primalac
+                        div(class='outputs-td') Količina
     |
     include includes/footer.pug

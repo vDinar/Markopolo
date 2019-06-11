@@ -3,9 +3,9 @@ html
   head
     include includes/head.pug
     |
-    script(src='/scripts/info.js')
-    script(src='/scripts/search.js')
-    script(src='/scripts/transactions.js')
+    script(src='/skriptovi/info.js')
+    script(src='/skriptovi/pretraga.js')
+    script(src='/skriptovi/transakcije.js')
   body
     include includes/header.pug
     |
@@ -13,20 +13,20 @@ html
       div(class='transactions')
         div(class='coin-info')
           div(class='preview')
-            img(src='/images/coin.png')
+            img(src='/slike/valuta.png')
           div(class='info-table')
             div(class='info-tr')
-              div(class='name') Net hashrate (MH/s)
+              div(class='name') Rudarska jačina (MH/s)
               div(class='value', id='coinInfoHashrate') -
             div(class='info-tr')
-              div(class='name') Difficulty
+              div(class='name') Rudarska težina
               div(class='value', id='coinInfoDifficulty') -
             div(class='info-tr')
-              div(class='name') Supply
+              div(class='name') Proizvedeno
               div(class='value', id='coinInfoSupply') -
           a(href='https://www.vdinar.info', target='_blank')
             div(class='website')
-              div(class='title') vDinar's official website
+              div(class='title') Službena stranica
               div(class='url') https://www.vdinar.info
         div(class='last-transactions')
           div(class='container')
@@ -37,9 +37,9 @@ html
                   input(type='submit', value='Search')
               div(class='transactions-table')
                 div(class='transactions-tr transactions-tr--main')
-                  div(class='transactions-td') Transaction index
-                  div(class='transactions-td') Transaction hash
-                  div(class='transactions-td') Time (GMT)
+                  div(class='transactions-td') Pozicija
+                  div(class='transactions-td') Rezultat transakcije
+                  div(class='transactions-td') Datum
                 - for (var i = 1; i <= 10; i++)
                   div(class='transactions-tr transactions-tr--values', id='transaction' + i)
                     div(class='transactions-td', id='transactionIndex' + i)

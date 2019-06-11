@@ -9,142 +9,142 @@ html
       div(class='api')
         div(class='menu')
           div(class='menu-box')
-            h2 Functions menu
+            h2 Meni funkcija
             ul
               li
-                a(href='#getAddress') getAddress
+                a(href='#adresa') adresa
               li
-                a(href='#getAddressTransactions') getAddressTransactions
+                a(href='#adresneTransakcije') adresneTransakcije
               li
-                a(href='#getBlock') getBlock
+                a(href='#blok') blok
               li
-                a(href='#getBlockByHash') getBlockByHash
+                a(href='#blokPutemRezultata') blokPutemRezultata
               li
-                a(href='#getBlockByIndex') getBlockByIndex
+                a(href='#blokPutemPozicije') blokPutemPozicije
               li
-                a(href='#getBlockchainInfo') getBlockchainInfo
+                a(href='#lanacBlokova') lanacBlokova
               li
-                a(href='#getBlockHash') getBlockHash
+                a(href='#rezultatBloka') rezultatBloka
               li
-                a(href='#getLastBlocks') getLastBlocks
+                a(href='#zadnjiBlokovi') zadnjiBlokovi
               li
-                a(href='#getLastTransactions') getLastTransactions
+                a(href='#zadnjeTransakcije') zadnjeTransakcije
               li
-                a(href='#getMiningInfo') getMiningInfo
+                a(href='#rudarenje') rudarenje
               li
-                a(href='#getRawTransaction') getRawTransaction
+                a(href='#izvornaTransakcija') izvornaTransakcija
               li
-                a(href='#getSupply') getSupply
+                a(href='#proizvod') proizvod
               li
-                a(href='#getTransaction') getTransaction
+                a(href='#transakcija') transakcija
               li
-                a(href='#search') search
+                a(href='#pretraga') pretraga
         div(class='functions')
-          h2 API v1.0
-          div(class='function' id='getAddress')
-            h3 getAddress
+          h2 APS v1.0
+          div(class='function' id='adresa')
+            h3 adresa
             p
               span(class='parameters')
-                | GET parameters: "address".
+                | GET parametri: "adresa".
               span(class='description')
-                | Returns main stored informations about the provided address: total received and spent coins, both confirmed and unconfirmed.
-          div(class='function' id='getAddressTransactions')
-            h3 getAddressTransactions
+                | Vraća glavne informacije o specificiranoj adresi: ukupne potvrđene i nepotvrđene količine primljenog i potrošenog novca.
+          div(class='function' id='adresneTransakcije')
+            h3 adresneTransakcije
             p
               span(class='parameters')
-                | GET parameters: "address", "page" (optional, default is 1).
+                | GET parametri: "adresa", "stranica" (neobavezan, zadana vrijednost je 1).
               span(class='description')
-                | Returns up to 10 stored transactions regarding the provided address. Offset can be moved by setting the "page" parameter.
-          div(class='function' id='getBlock')
-            h3 getBlock
+                | Vraća do 10 sačuvanih transakcija povezane sa specificiranom adresom. Razmak se može odrediti parametrom "stranica".
+          div(class='function' id='blok')
+            h3 blok
             p
-              span(class='parameters') GET parameters: "hash" or "index".
+              span(class='parameters') GET parametri: "rezultat" ili "pozicija".
               span(class='description')
-                | Directly returns the client's answer by calling the "getblock" function, if providing an index it calls "getblockhash" before. It is reccomended to use either 
-                a(href='#getBlockByHash') getBlockByHash
-                |  or 
-                a(href='#getBlockByIndex') getBlockByIndex
-                |  for slightly better performance.
-          div(class='function' id='getBlockByHash')
-            h3 getBlockByHash
-            p
-              span(class='parameters')
-                | GET parameters: "hash".
-              span(class='description')
-                | Just like calling 
-                a(href='#getBlock') getBlock
-                |  with a "hash" parameter, but avoids futile checks for an eventual "index" parameter, being slightly faster.
-          div(class='function' id='getBlockByIndex')
-            h3 getBlockByIndex
+                | Vraća direktni odgovor funkcije "getblock", no ako je specificiran i parametar "pozicija" poziva i "getblockhash" funkciju prije toga. Preporučeno je koristiti
+                a(href='#blokPutemRezultata') blokPutemRezultata
+                |  ili 
+                a(href='#blokPutemPozicije') blokPutemPozicije
+                |  za malo brži odgovor.
+          div(class='function' id='blokPutemRezultata')
+            h3 blokPutemRezultata
             p
               span(class='parameters')
-                | GET parameters: "index".
+                | GET parametri: "rezultat".
               span(class='description')
-                | Just like calling 
-                a(href='#getBlock') getBlock
-                |  with a "index" parameter, but avoids futile checks for an eventual "hash" parameter, being slightly faster.
-          div(class='function' id='getBlockchainInfo')
-            h3 getBlockchainInfo
+                | Isto kao 
+                a(href='#blok') blok
+                |  sa parametrom "rezultat", no izbjegava nepotrebnu provjeru za parametrom "pozicija", te je odgovor malo brži.
+          div(class='function' id='blokPutemPozicije')
+            h3 blokPutemPozicije
             p
               span(class='parameters')
-                | No parameters.
+                | GET parametri: "pozicija".
               span(class='description')
-                | Directly returns the client's answer by calling the "getblockchaininfo" function.
-          div(class='function' id='getBlockHash')
-            h3 getBlockHash
+                |	Isto kao 
+                a(href='#blok') blok
+                |  sa parametrom "pozicija", no izbjegava nepotrebnu provjeru za parametrom "rezultat", te je odgovor malo brži.
+          div(class='function' id='lanacBlokova')
+            h3 lanacBlokova
             p
               span(class='parameters')
-                | GET parameters: "index".
+                | Bez parametra.
               span(class='description')
-                | Directly returns the client's answer by calling the "getblockhash" function.
-          div(class='function' id='getLastBlocks')
-            h3 getLastBlocks
+                | Vraća direktni odgovor funkcije "getblockchaininfo".
+          div(class='function' id='rezultatBloka')
+            h3 rezultatBloka
             p
               span(class='parameters')
-                | GET parameters: "page" (optional, default is 1).
+                | GET parametri: "pozicija".
               span(class='description')
-                | Returns up to 10 blocks directly from the client. Offset can be moved by setting the "page" parameter.
-          div(class='function' id='getLastTransactions')
-            h3 getLastTransactions
+                | Vraća direktni odgovor funkcije "getblockhash".
+          div(class='function' id='zadnjiBlokovi')
+            h3 zadnjiBlokovi
             p
               span(class='parameters')
-                | GET parameters: "page" (optional, default is 1).
+                | GET parametri: "stranica" (neobavezan, zadana vrijednost je 1).
               span(class='description')
-                | Returns up to 10 stored transactions. Offset can be moved by setting the "page" parameter.
-          div(class='function' id='getMiningInfo')
-            h3 getMiningInfo
+                | Vraća do 10 blokova direktno sa novčanika. Razmak se može odrediti parametrom "stranica".
+          div(class='function' id='zadnjeTransakcije')
+            h3 zadnjeTransakcije
             p
               span(class='parameters')
-                | No parameters.
+                | GET parametri: "stranica" (neobavezan, zadana vrijednost je 1).
               span(class='description')
-                | Directly returns the client's answer by calling the "getblockchaininfo" function.
-          div(class='function' id='getRawTransaction')
-            h3 getRawTransaction
+                | Vraća do 10 sačuvanih zadnjih transakcija. Razmak se može odrediti parametrom "stranica".
+          div(class='function' id='rudarenje')
+            h3 rudarenje
             p
               span(class='parameters')
-                | GET parameters: "id".
+                | Bez parametra.
               span(class='description')
-                | Directly returns the client's answer by calling the "getrawtransaction" function.
-          div(class='function' id='getSupply')
-            h3 getSupply
+                | Vraća direktni odgovor funkcije "getmininginfo".
+          div(class='function' id='izvornaTransakcija')
+            h3 izvornaTransakcija
             p
               span(class='parameters')
-                | No parameters.
+                | GET parametri: "rezultat".
               span(class='description')
-                | Returns the stored total coin supply.
-          div(class='function' id='getTransaction')
-            h3 getTransaction
+                | Vraća direktni odgovor funkcije "getrawtransaction".
+          div(class='function' id='proizvod')
+            h3 proizvod
             p
               span(class='parameters')
-                | GET parameters: "id" (either transaction's literal id or numeric index).
+                | Bez parametra.
               span(class='description')
-                | Returns main stored informations about the provided transaction.
-          div(class='function' id='search')
-            h3 search
+                | Vraća sačuvani podatak o ukupnom proizvodu virtualnih Dinara.
+          div(class='function' id='transakcija')
+            h3 transakcija
             p
               span(class='parameters')
-                | GET parameters: "string" (must be a block index, block hash, transaction hash or address).
+                | GET parametri: "identifikator" (ili rezultat transakcije ili njen broj).
               span(class='description')
-                | Returns a local URL to a page showing informations about the block, transaction or address provided..
+                | Vraća glavne informacije o specificiranoj transakciji.
+          div(class='function' id='pretraga')
+            h3 pretraga
+            p
+              span(class='parameters')
+                | GET parametri: "tekst" (pozicija bloka, rezultat bloka, rezultat transakcije ili adresa).
+              span(class='description')
+                | Vraća lokalnu putanju do stranice sa informacijama o specificiranom bloku, transakciji ili adresi.
     |
     include includes/footer.pug
